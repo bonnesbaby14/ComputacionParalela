@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class Carrera extends JFrame{
-    private JPanel contentPane;
     private ImageIcon elefante;
     private ImageIcon hiena;
     private ImageIcon jirafa;
