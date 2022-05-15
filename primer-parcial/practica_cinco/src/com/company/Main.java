@@ -2,10 +2,11 @@ package com.company;
 
 import java.util.Scanner;
 
-public class Main implements Calculadora{
+public class Main{
 
     public static void main(String[] args) {
         Sistema nuevo =new Sistema();
+        nuevo.setVisible(true);
         System.out.println("Ingresa la opcion deseada");
         System.out.println("[1] suma");
         System.out.println("[2] resta");
@@ -67,33 +68,5 @@ public class Main implements Calculadora{
 
     }
 
-    @Override
-    public  float suma(float a, float b) {
-        return a+b;
-    }
 
-    @Override
-    public float resta(float a, float b) {
-        return a-b;
-    }
-
-    @Override
-    public float multiplicacion(float a, float b) {
-        return a*b;
-    }
-
-    @Override
-    public float division(float a, float b) {
-        return a/b;
-    }
-
-    @Override
-    public float potencia(float a, float b) {
-        return (float) Math.pow(a,b);
-    }
-
-    @Override
-    public int modulo(float a, float b) {
-        return (int) (a%b);
-    }
 }
