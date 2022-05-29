@@ -11,22 +11,16 @@ package com.company;
  */
 public class ExecutorServiceS implements Runnable{
 
-    int cantidad;
+
     int arreglo[];
     String resultado = "";
 
-    public ExecutorServiceS(int[] arreglo, int cantidad) {
+    public ExecutorServiceS(int[] arreglo) {
         this.arreglo = arreglo;
-        this.cantidad = cantidad;
+
     }
-
     public void run() {
-
         int arreglo2[]=executor(arreglo);
-
-
-
-
     }
     public int [] returnArray()
     {
@@ -44,11 +38,7 @@ public class ExecutorServiceS implements Runnable{
 
             for(int i=0; i<arreglo.length;i++){
                 arreglo[i]=factorialResultado(arreglo[i]);
-
-
             }
-
-
             return arreglo;
         }
 

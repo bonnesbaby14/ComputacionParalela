@@ -11,7 +11,7 @@ public class Main {
 
         do{
             Random r = new Random();
-            cantidad = 10000;
+            cantidad = 100;
 
         }while(cantidad == 1);
 
@@ -29,7 +29,7 @@ public class Main {
 
     public static int random(){
         Random r = new Random();
-        int valorDado = r.nextInt(10)+1;
-        return valorDado;
+        int data = r.nextInt(10)+1;
+        return data;
     }
 }

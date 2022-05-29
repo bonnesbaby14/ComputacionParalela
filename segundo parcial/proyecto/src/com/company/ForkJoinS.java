@@ -23,8 +23,6 @@ public class ForkJoinS extends RecursiveTask<int []> {
         if (arreglo.length < 2) {
             for(int i=0; i<arreglo.length;i++){
                 arreglo[i]=factorialResultado(arreglo[i]);
-
-
             }
 
             return arreglo;

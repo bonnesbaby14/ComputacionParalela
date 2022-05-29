@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,12 +20,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -37,12 +33,16 @@ public class Interfaz extends JFrame implements ActionListener {
     JTextArea etiquetaSecuencial = new JTextArea();
     JTextArea etiquetaForkJoin = new JTextArea();
     JTextArea etiquetaExecutorService = new JTextArea();
+    JTextField cantidadd=new JTextField();
     JLabel etiquetaTiempo1 = new JLabel();
     JLabel etiquetaTiempo2 = new JLabel();
     JLabel etiquetaTiempo3 = new JLabel();
     JButton boton3 = new JButton();
     JButton boton2 = new JButton();
     JButton boton1 = new JButton();
+    JButton boton = new JButton();
+
+
     int cantidad;
     int arreglo[] = new int[cantidad];
 
@@ -102,6 +102,7 @@ public class Interfaz extends JFrame implements ActionListener {
         JScrollPane scroll3 = new JScrollPane(etiquetaExecutorService);
         scroll3.setBounds(600, 330, 400, 150);
 
+        boton.addActionListener(this);
 
         boton1.addActionListener(this);
         boton1.setText("Secuencial");
@@ -116,8 +117,14 @@ public class Interfaz extends JFrame implements ActionListener {
         boton3.setText("ExecutorService");
         boton3.setBounds(1030, 380, 150, 50);
 
+        boton.setBounds(130, 600,100,100);
 
+        boton.setBounds(130, 600,100,100);
 
+        cantidadd.setBounds(30,600,100,100);
+
+        ventana.add(cantidadd);
+        ventana.add(boton);
         ventana.add(boton1);
         ventana.add(boton2);
         ventana.add(boton3);
@@ -144,12 +151,11 @@ public class Interfaz extends JFrame implements ActionListener {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 
         if(e.getSource() == boton1){
-            int array[] = new int[cantidad];
-            System.arraycopy(arreglo, 0, array, 0, cantidad);
 
             long startTime = System.currentTimeMillis();
-
-            Secuencial secuencial = new Secuencial(arreglo, cantidad);
+            int array[] = new int[cantidad];
+            System.arraycopy(arreglo, 0, array, 0, cantidad);
+            Secuencial secuencial = new Secuencial(arreglo);
             long tiempoCadena = System.currentTimeMillis() - startTime;
             etiquetaSecuencial.setText(secuencial.resultado);
             etiquetaTiempo1.setText("TIEMPO SECUENCIAL: "+tiempoCadena + " mili segundos");
@@ -161,16 +167,31 @@ public class Interfaz extends JFrame implements ActionListener {
 
 
         }
+        else if(e.getSource() == boton){
+            cantidad=Integer.parseInt(cantidadd.getText().toString());
+            arreglo=new int[cantidad];
+            for(int i=0; i<cantidad; i++){
+                arreglo[i] = random();
+            }
+            String arregloDesordenado = "";
+
+            for (int i = 0; i < cantidad; i++) {
+                arregloDesordenado = arregloDesordenado + arreglo[i];
+                if (i != cantidad - 1)
+                    arregloDesordenado = arregloDesordenado + ", ";
+            }
+            etiquetaDesordenada.setText(arregloDesordenado);
+
+        }
         else if(e.getSource() == boton2){
 
             int  array[] = new int[cantidad];
             System.arraycopy(arreglo, 0, array, 0, cantidad);
 
-            ForkJoinPool pool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+            ForkJoinPool pool = new ForkJoinPool(4);
             ForkJoinS forkjoin = new ForkJoinS(arreglo);
             long startTime = System.currentTimeMillis();
             int [] arrayn=pool.invoke(forkjoin);
-
             long tiempoCadena = System.currentTimeMillis() - startTime;
 
             String resultado = "";
@@ -196,15 +217,16 @@ public class Interfaz extends JFrame implements ActionListener {
             int array[] = new int[cantidad];
             System.arraycopy(arreglo, 0, array, 0, cantidad);
 
-            long startTime = System.currentTimeMillis();
+
             ExecutorService executorS = Executors.newFixedThreadPool(4);
-            ExecutorServiceS executeClase = new ExecutorServiceS(arreglo, cantidad);
+            ExecutorServiceS executeClase = new ExecutorServiceS(arreglo);
+            long startTime = System.currentTimeMillis();
             executorS.execute(executeClase);
             long tiempoCadena = System.currentTimeMillis() - startTime;
 
             String resultado = "";
 
-            int [] arreglo2=executeClase.returnArray();
+            executeClase.returnArray();
 
 
             for(int i=0; i<cantidad; i++){
@@ -218,4 +240,10 @@ public class Interfaz extends JFrame implements ActionListener {
             System.arraycopy(array, 0, arreglo, 0, cantidad);
         }
     }
-}
+
+    public static int random() {
+        Random r = new Random();
+        int data = r.nextInt(10) + 1;
+        return data;
+    }
+    }

@@ -7,18 +7,23 @@ package com.company;
 
 public class Secuencial {
 
-    int cantidad;
-    int arreglo[] = new int[cantidad];
+
+    int arreglo[];
     String resultado = "";
-    double tiempo;
 
-    Secuencial(int[] arreglo, int cantidad){
-        this.cantidad = cantidad;
+
+    Secuencial(int[] arreglo){
+
         this.arreglo = arreglo;
+        for(int i=0; i<arreglo.length;i++){
 
+            System.out.println(arreglo[i]);
+
+
+        }
         factorial(arreglo);
 
-        long inicio = System.nanoTime();
+
 
         for(int i =0; i< arreglo.length;++i){
             resultado = resultado + arreglo[i];
@@ -26,15 +31,21 @@ public class Secuencial {
                 resultado = resultado + ", ";
         }
         System.out.println("");
-        long fin = System.nanoTime();
 
-        tiempo = fin - inicio;
 
+
+        for(int i=0; i<arreglo.length;i++){
+
+            System.out.println(arreglo[i]);
+
+
+        }
     }
 
     public static void factorial(int[] arreglo) {
         for(int i=0; i<arreglo.length;i++){
             arreglo[i]=factorialResultado(arreglo[i]);
+            System.out.println(arreglo[i]);
 
 
         }
