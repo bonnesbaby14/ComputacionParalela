@@ -52,25 +52,11 @@ public class implementacionClienteChat extends UnicastRemoteObject implements ch
     @Override
     public void run() {
         Scanner s = new Scanner(System.in);
-        String mensaje, operacion;
+
 
 
         
-        while(true){
-            System.out.println("DIGITA UN VALOR: ");
-            mensaje = s.nextLine();
-            try{
-                System.out.println(nombre+" DIGITO: "+mensaje);
-                
-                System.out.println("OPERACION: [+] [-] [*] [/] ");
-                operacion = s.nextLine();
-                
-                servidor.mensaje("",nombre);
-                
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
+
     }
     
     
